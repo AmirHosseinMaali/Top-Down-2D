@@ -66,7 +66,7 @@ public class PlayerController : Singleton<PlayerController>
     }
     private void Move()
     {
-        if (knockBack.GettingKnockBack || PlayerHealth.Instance.isDead)
+        if (knockBack.GettingKnockBack || PlayerHealth.Instance.IsDead)
         {
             return;
         }

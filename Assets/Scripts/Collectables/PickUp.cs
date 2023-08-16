@@ -88,6 +88,8 @@ public class PickUp : MonoBehaviour
             case PickUpType.HealthGlobe:
                 PlayerHealth.Instance.HealPlayer();
                 break;
+            default: 
+                break;
         }
     }
 }
