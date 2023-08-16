@@ -26,13 +26,13 @@ public class Projectile : MonoBehaviour
     {
         this.shootSpeed = shootSpeed;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
         Indestructible indestructible = collision.gameObject.GetComponent<Indestructible>();
         PlayerHealth player = collision.gameObject.GetComponent<PlayerHealth>();
 
-        if (!collision.isTrigger && (enemyHealth || indestructible || player))
+        if (!collision.otherCollider && (enemyHealth || indestructible || player))
         {
             if ((player && isEnemyProjectile) || (enemyHealth && !isEnemyProjectile))
             {
@@ -40,7 +40,7 @@ public class Projectile : MonoBehaviour
                 Instantiate(particleOnHitVFX, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
-            else if (!collision.isTrigger && indestructible)
+            else if (!collision.otherCollider && indestructible)
             {
                 Instantiate(particleOnHitVFX, transform.position, transform.rotation);
                 Destroy(gameObject);
