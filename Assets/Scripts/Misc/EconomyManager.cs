@@ -7,7 +7,6 @@ public class EconomyManager : Singleton<EconomyManager>
     int currentGold = 0;
 
     const string COIN_AMOUNT_TEXT = "GoldAmountText";
-
     public void UpdateCurrentGold()
     {
         currentGold++;

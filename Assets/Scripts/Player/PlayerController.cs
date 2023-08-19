@@ -11,14 +11,15 @@ public class PlayerController : Singleton<PlayerController>
     public bool FacingLeft { get { return facingLeft; } set { facingLeft = value; } }
 
     private bool facingLeft = false;
+    private bool isDashing = false;
+    private bool isPaused = false;
+    private float startingMoveSpeed;
     private PlayerControls playerControls;
     private Vector2 movement;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private KnockBack knockBack;
-    private bool isDashing = false;
-    private float startingMoveSpeed;
 
     protected override void Awake()
     {
@@ -32,6 +33,7 @@ public class PlayerController : Singleton<PlayerController>
     private void Start()
     {
         playerControls.Combat.Dash.performed += _ => Dash();
+        playerControls.Pause.Pause.performed += _ => Pause();
         startingMoveSpeed = moveSpeed;
         ActiveInventory.Instance.EquipStartingWeapon();
     }
@@ -85,6 +87,19 @@ public class PlayerController : Singleton<PlayerController>
         {
             spriteRenderer.flipX = false;
             facingLeft = false;
+        }
+    }
+    private void Pause()
+    {
+        if (!isPaused)
+        {
+            Time.timeScale = 0;
+            isPaused = true;
+        }
+        else
+        {
+            isPaused = false;
+            Time.timeScale = 1;
         }
     }
     private void Dash()
